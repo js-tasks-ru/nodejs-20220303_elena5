@@ -17,19 +17,19 @@ class LineSplitStream extends stream.Transform {
 
     const fullData = `${this.lastLineData || ''}${data}`;
     const lines = fullData.split(os.EOL);
-    const firstLine = lines.shift();
 
-    this.lastLineData = lines.join(os.EOL);
-    callback(null, firstLine);
+    this.lastLineData = lines[lines.length - 1];
+    for (let i = 0; i < lines.length - 1; i++) {
+      this.push(lines[i]);
+    }
+    callback();
   }
 
   _flush(callback) {
     if (this.lastLineData) {
-      callback(null, this.lastLineData);
-    } else {
-      callback();
+      this.push(this.lastLineData);
     }
-
+    callback();
     this.lastLineData = null;
   }
 }
