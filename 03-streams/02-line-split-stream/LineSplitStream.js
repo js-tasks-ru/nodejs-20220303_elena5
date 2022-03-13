@@ -29,8 +29,8 @@ class LineSplitStream extends stream.Transform {
     if (this.lastLineData) {
       this.push(this.lastLineData);
     }
-    callback();
     this.lastLineData = null;
+    callback();
   }
 }
 
