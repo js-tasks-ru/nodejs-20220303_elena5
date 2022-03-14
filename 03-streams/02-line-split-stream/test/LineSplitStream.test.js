@@ -54,6 +54,7 @@ describe('streams/line-split-stream', () => {
       lines.on('data', onData);
       lines.on('end', () => {
         expect(onData.callCount, 'событие data должно быть вызвано 6 раз').to.be.equal(6);
+
         expect(onData.firstCall.args[0]).to.equal('a');
         expect(onData.secondCall.args[0]).to.equal('b');
         expect(onData.thirdCall.args[0]).to.equal('c');
